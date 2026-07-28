@@ -8,21 +8,33 @@ import {
   CardTitle,
 } from "./ui/card";
 
-const TaskBox = () => {
+type TaskBoxProps = {
+  title: string;
+  description: string;
+  content: string;
+  footer: string;
+};
+
+const TaskBox = ({
+  title = "Title",
+  description = "Lorem Ipsum Text",
+  content = "Lorem Ipsum Text",
+  footer = "Footer Text content here",
+}: TaskBoxProps) => {
   return (
-    <Card className="w-80">
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle className="text-lg pb-2">{title}</CardTitle>
+        <CardDescription className="text-xs">{description}</CardDescription>
         <CardAction>
-          <i className="bi bi-three-dots" />
+          <i className="bi bi-three-dots text-white/30" />
         </CardAction>
       </CardHeader>
-      <CardContent>
-        <p>Card Content</p>
+      <CardContent className="text-md text-white">
+        <p>{content}</p>
       </CardContent>
       <CardFooter>
-        <p>Card Footer</p>
+        <p>{footer}</p>
       </CardFooter>
     </Card>
   );
