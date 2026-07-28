@@ -10,11 +10,13 @@ import {
 
 const TaskBox = () => {
   return (
-    <Card>
+    <Card className="w-80">
       <CardHeader>
         <CardTitle>Card Title</CardTitle>
         <CardDescription>Card Description</CardDescription>
-        <CardAction>Card Action</CardAction>
+        <CardAction>
+          <i className="bi bi-three-dots" />
+        </CardAction>
       </CardHeader>
       <CardContent>
         <p>Card Content</p>

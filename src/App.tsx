@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import TaskBox from "./components/TaskBox";
 
 function App() {
