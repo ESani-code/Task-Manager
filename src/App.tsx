@@ -57,7 +57,7 @@ function App() {
             }
           }}
         >
-          <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
+          <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4 justify-center content-start">
             {ColumnsId.map((columnId) => (
               <Columns key={columnId} id={columnId}>
                 {items[columnId].map((task, index) => (
