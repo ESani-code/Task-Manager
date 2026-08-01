@@ -8,21 +8,37 @@ import {
   CardTitle,
 } from "./ui/card";
 
+import { useSortable } from "@dnd-kit/react/sortable";
+
 type TaskBoxProps = {
+  id: string;
+  index: number;
   title: string;
   description: string;
   content: string;
   footer: string;
+  column: string | number;
 };
 
 const TaskBox = ({
+  id,
+  index,
   title = "Title",
   description = "Lorem Ipsum Text",
   content = "Lorem Ipsum Text",
   footer = "Footer Text content here",
+  column = 1,
 }: TaskBoxProps) => {
+  const { ref, isDragging } = useSortable({
+    id,
+    index,
+    type: "item",
+    accept: "item",
+    group: column,
+  });
+
   return (
-    <Card className="w-full">
+    <Card ref={ref} className="w-full" data-dragging={isDragging}>
       <CardHeader>
         <CardTitle className="text-lg pb-2">{title}</CardTitle>
         <CardDescription className="text-xs">{description}</CardDescription>
