@@ -13,7 +13,7 @@ import { type Task, makeTask } from "./utils/makeTask";
 
 function App() {
   const handleUpdateTask = (
-    columnId: string,
+    columnId: string | number,
     taskId: string,
     field: keyof Task,
     newValue: string,
@@ -70,6 +70,7 @@ function App() {
                       description={task.description}
                       content={task.content}
                       footer={task.footer}
+                      onUpdate={handleUpdateTask}
                     />
                   ))}
                 </Columns>

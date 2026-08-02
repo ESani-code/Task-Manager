@@ -23,6 +23,12 @@ type TaskBoxProps = {
   content: string;
   footer: string;
   column: string | number;
+  onUpdate: (
+    columnId: string | number,
+    taskId: string,
+    field: keyof Task,
+    newValue: string,
+  ) => void;
 };
 
 const TaskBox = ({
@@ -33,6 +39,7 @@ const TaskBox = ({
   content = "Lorem Ipsum Text",
   footer = "Footer Text content here",
   column = 1,
+  onUpdate,
 }: TaskBoxProps) => {
   const { ref, isDragging } = useSortable({
     id,
@@ -48,10 +55,17 @@ const TaskBox = ({
         <CardTitle className="text-lg pb-2">
           <EditableField
             value={title}
-            onSave={(newValue) => console.log(newValue)}
+            onSave={(newVal) => onUpdate(column, id, "title", newVal)}
           />
         </CardTitle>
-        <CardDescription className="text-xs">{description}</CardDescription>
+        <CardDescription className="text-xs">
+          <EditableField
+            value={title}
+            onSave={(newVal) =>
+              onUpdate(description, id, "description", newVal)
+            }
+          />
+        </CardDescription>
         <CardAction>
           <Button
             variant="secondary"
@@ -62,7 +76,12 @@ const TaskBox = ({
         </CardAction>
       </CardHeader>
       <CardContent className="text-md text-white">
-        <p>{content}</p>
+        <p>
+          <EditableField
+            value={title}
+            onSave={(newVal) => onUpdate(content, id, "content", newVal)}
+          />
+        </p>
       </CardContent>
       <CardFooter>
         <p>{footer}</p>
