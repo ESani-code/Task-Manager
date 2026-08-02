@@ -17,7 +17,7 @@ type Task = {
   footer: string;
 };
 
-const ColumnsId = ["On Going", "Upcoming", "Completed", "Paused"];
+// const ColumnsId = ["On Going", "Upcoming", "Completed", "Paused"];
 
 function makeTask(n: number): Task {
   return {
@@ -59,15 +59,17 @@ function App() {
           }}
         >
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
-            {Object.entries(initialItems).map(([columnId]) => (
-              <div className="flex justify-center items-center text-center ">
+            {Object.entries(initialItems).map(([columnId, tasks]) => (
+              <div className="flex justify-center items-center text-center mt-3">
                 <div className="bg-neutral-600 w-auto h-auto px-4 py-1 rounded-sm">
-                  <h2>{columnId}</h2>
+                  <h2>
+                    {columnId} : {tasks.length}
+                  </h2>
                 </div>
               </div>
             ))}
 
-            {ColumnsId.map((columnId) => (
+            {Object.entries(initialItems).map(([columnId]) => (
               <>
                 <Columns key={columnId} id={columnId}>
                   {items[columnId].map((task, index) => (
