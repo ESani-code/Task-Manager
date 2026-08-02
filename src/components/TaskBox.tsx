@@ -12,6 +12,9 @@ import { Button } from "./ui/button";
 
 import { useSortable } from "@dnd-kit/react/sortable";
 
+import { type Task } from "../utils/makeTask";
+import { EditableField } from "./ui/EditableField";
+
 type TaskBoxProps = {
   id: string;
   index: number;
@@ -42,7 +45,12 @@ const TaskBox = ({
   return (
     <Card ref={ref} className="w-full h-auto" data-dragging={isDragging}>
       <CardHeader>
-        <CardTitle className="text-lg pb-2">{title}</CardTitle>
+        <CardTitle className="text-lg pb-2">
+          <EditableField
+            value={title}
+            onSave={(newValue) => console.log(newValue)}
+          />
+        </CardTitle>
         <CardDescription className="text-xs">{description}</CardDescription>
         <CardAction>
           <Button
