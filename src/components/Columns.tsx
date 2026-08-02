@@ -18,7 +18,7 @@ const Columns = ({ children, id }: Props) => {
 
   return (
     <div
-      className="bg-neutral-600 w-full max-h-80 h-auto mt-8 rounded-sm p-4 flex flex-col grow gap-3 overflow-scroll"
+      className="bg-neutral-600 w-full min-h-30 h-fit mt-3 rounded-sm p-4 flex flex-col gap-3 justify-start items-center"
       ref={ref}
       style={style}
     >

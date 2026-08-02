@@ -17,7 +17,7 @@ type Task = {
   footer: string;
 };
 
-const ColumnsId = ["0", "1", "2"];
+const ColumnsId = ["On Going", "Upcoming", "Completed", "Paused"];
 
 function makeTask(n: number): Task {
   return {
@@ -30,9 +30,10 @@ function makeTask(n: number): Task {
 }
 
 const initialItems: Record<string, Task[]> = {
-  "0": [makeTask(1), makeTask(2), makeTask(3)],
-  "1": [makeTask(4), makeTask(5), makeTask(6)],
-  "2": [makeTask(7), makeTask(8), makeTask(9)],
+  "On Going": [makeTask(1), makeTask(2), makeTask(3)],
+  Upcoming: [makeTask(4), makeTask(5), makeTask(6)],
+  Completed: [makeTask(7), makeTask(8), makeTask(9)],
+  Paused: [makeTask(10), makeTask(11), makeTask(12)],
 };
 
 function App() {
@@ -57,22 +58,32 @@ function App() {
             }
           }}
         >
-          <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4 justify-center content-start">
+          <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
+            {Object.entries(initialItems).map(([columnId]) => (
+              <div className="flex justify-center items-center text-center ">
+                <div className="bg-neutral-600 w-auto h-auto px-4 py-1 rounded-sm">
+                  <h2>{columnId}</h2>
+                </div>
+              </div>
+            ))}
+
             {ColumnsId.map((columnId) => (
-              <Columns key={columnId} id={columnId}>
-                {items[columnId].map((task, index) => (
-                  <TaskBox
-                    key={task.id}
-                    id={task.id}
-                    index={index}
-                    column={columnId}
-                    title={task.title}
-                    description={task.description}
-                    content={task.content}
-                    footer={task.footer}
-                  />
-                ))}
-              </Columns>
+              <>
+                <Columns key={columnId} id={columnId}>
+                  {items[columnId].map((task, index) => (
+                    <TaskBox
+                      key={task.id}
+                      id={task.id}
+                      index={index}
+                      column={columnId}
+                      title={task.title}
+                      description={task.description}
+                      content={task.content}
+                      footer={task.footer}
+                    />
+                  ))}
+                </Columns>
+              </>
             ))}
           </div>
         </DragDropProvider>
