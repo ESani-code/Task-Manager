@@ -8,9 +8,9 @@ type Props = {
 const ColumnHeader = ({ columnId, tasks }: Props) => {
   return (
     <div className="flex justify-center items-center text-center mt-3">
-      <div className="bg-neutral-600 w-auto h-auto px-4 py-1 rounded-sm">
+      <div className="bg-secondary w-auto h-auto px-4 py-1 rounded-sm">
         <h2>
-          {columnId} : {tasks.length}
+          {columnId} : <span className="font-bold">{tasks.length}</span>
         </h2>
       </div>
     </div>

@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "./ui/card";
 
+import { Button } from "./ui/button";
+
 import { useSortable } from "@dnd-kit/react/sortable";
 
 type TaskBoxProps = {
@@ -43,7 +45,12 @@ const TaskBox = ({
         <CardTitle className="text-lg pb-2">{title}</CardTitle>
         <CardDescription className="text-xs">{description}</CardDescription>
         <CardAction>
-          <i className="bi bi-three-dots text-white/30" />
+          <Button
+            variant="secondary"
+            className=" text-white/30 hover:text-white/80 items-center"
+          >
+            <i className="bi bi-three-dots" />
+          </Button>
         </CardAction>
       </CardHeader>
       <CardContent className="text-md text-white">
