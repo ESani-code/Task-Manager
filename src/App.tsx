@@ -6,6 +6,7 @@ import { move } from "@dnd-kit/helpers";
 
 import TaskBox from "./components/TaskBox";
 import Columns from "./components/Columns";
+import ColumnHeader from "./components/ColumnHeader";
 
 import { useRef, useState } from "react";
 import { type Task, makeTask } from "./utils/makeTask";
@@ -39,17 +40,8 @@ function App() {
         >
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
             {Object.entries(items).map(([columnId, tasks]) => (
-              <div className="flex justify-center items-center text-center mt-3">
-                <div className="bg-neutral-600 w-auto h-auto px-4 py-1 rounded-sm">
-                  <h2>
-                    {columnId} : {tasks.length}
-                  </h2>
-                </div>
-              </div>
-            ))}
-
-            {Object.entries(items).map(([columnId]) => (
               <>
+                <ColumnHeader columnId={columnId} tasks={tasks} />
                 <Columns key={columnId} id={columnId}>
                   {items[columnId].map((task, index) => (
                     <TaskBox
