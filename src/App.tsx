@@ -12,6 +12,23 @@ import { useRef, useState } from "react";
 import { type Task, makeTask } from "./utils/makeTask";
 
 function App() {
+  const handleUpdateTask = (
+    columnId: string,
+    taskId: string,
+    field: keyof Task,
+    newValue: string,
+  ) => {
+    setItems((prevItems) => {
+      // Map over the specific column's tasks and update the one that matches the ID
+      const updatedColumn = prevItems[columnId].map((task) =>
+        task.id === taskId ? { ...task, [field]: newValue } : task,
+      );
+
+      // Return the new state object
+      return { ...prevItems, [columnId]: updatedColumn };
+    });
+  };
+
   const [items, setItems] = useState<Record<string, Task[]>>({
     "On Going": [makeTask(1), makeTask(2), makeTask(3)],
     Upcoming: [makeTask(4), makeTask(5), makeTask(6)],
