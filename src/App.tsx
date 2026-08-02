@@ -17,8 +17,6 @@ type Task = {
   footer: string;
 };
 
-// const ColumnsId = ["On Going", "Upcoming", "Completed", "Paused"];
-
 function makeTask(n: number): Task {
   return {
     id: `task-${n}`,
@@ -29,15 +27,13 @@ function makeTask(n: number): Task {
   };
 }
 
-const initialItems: Record<string, Task[]> = {
-  "On Going": [makeTask(1), makeTask(2), makeTask(3)],
-  Upcoming: [makeTask(4), makeTask(5), makeTask(6)],
-  Completed: [makeTask(7), makeTask(8), makeTask(9)],
-  Paused: [makeTask(10), makeTask(11), makeTask(12)],
-};
-
 function App() {
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState<Record<string, Task[]>>({
+    "On Going": [makeTask(1), makeTask(2), makeTask(3)],
+    Upcoming: [makeTask(4), makeTask(5), makeTask(6)],
+    Completed: [makeTask(7), makeTask(8), makeTask(9)],
+    Paused: [makeTask(10), makeTask(11), makeTask(12)],
+  });
   const previousItems = useRef(items);
 
   return (
@@ -59,7 +55,7 @@ function App() {
           }}
         >
           <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
-            {Object.entries(initialItems).map(([columnId, tasks]) => (
+            {Object.entries(items).map(([columnId, tasks]) => (
               <div className="flex justify-center items-center text-center mt-3">
                 <div className="bg-neutral-600 w-auto h-auto px-4 py-1 rounded-sm">
                   <h2>
@@ -69,7 +65,7 @@ function App() {
               </div>
             ))}
 
-            {Object.entries(initialItems).map(([columnId]) => (
+            {Object.entries(items).map(([columnId]) => (
               <>
                 <Columns key={columnId} id={columnId}>
                   {items[columnId].map((task, index) => (
