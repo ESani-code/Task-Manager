@@ -8,24 +8,7 @@ import TaskBox from "./components/TaskBox";
 import Columns from "./components/Columns";
 
 import { useRef, useState } from "react";
-
-type Task = {
-  id: string;
-  title: string;
-  description: string;
-  content: string;
-  footer: string;
-};
-
-function makeTask(n: number): Task {
-  return {
-    id: `task-${n}`,
-    title: `Task ${n}`,
-    description: "Card Description for the task yooooooo",
-    content: "Card Content for the task at hand",
-    footer: "Card Footer",
-  };
-}
+import { type Task, makeTask } from "./utils/makeTask";
 
 function App() {
   const [items, setItems] = useState<Record<string, Task[]>>({
