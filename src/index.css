@@ -149,6 +149,6 @@ body {
   }
 
   .filter-items-inactive {
-    @apply px-2 py-1 text-gray-400 hover:bg-accent-foreground/5 hover:rounded-sm;
+    @apply px-2 py-1 text-gray-400 hover:bg-accent-foreground/5 hover:rounded-sm hover:cursor-pointer;
   }
 }

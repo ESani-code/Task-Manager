@@ -51,7 +51,11 @@ const TaskBox = ({
   });
 
   return (
-    <Card ref={ref} className="w-full h-auto" data-dragging={isDragging}>
+    <Card
+      ref={ref}
+      className="w-full h-auto cursor-grab"
+      data-dragging={isDragging}
+    >
       <CardHeader>
         <CardTitle className="text-lg pb-2">
           <EditableField
