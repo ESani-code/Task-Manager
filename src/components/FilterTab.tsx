@@ -7,13 +7,13 @@ type Props = {
 
 const FilterTab = ({ activeTab, setActiveTab }: Props) => {
   return (
-    <ul className="flex flex-row gap-6 text-sm">
+    <ul className="flex flex-row gap-6 text-sm p-3 bg-sidebar rounded-lg items-center">
       <li
         onClick={() => setActiveTab("All Tasks")}
         className={
           activeTab === "All Tasks"
-            ? "font-bold text-white border-b-2"
-            : "text-gray-400"
+            ? "filter-items-active"
+            : "filter-items-inactive"
         }
       >
         All Tasks
@@ -25,8 +25,8 @@ const FilterTab = ({ activeTab, setActiveTab }: Props) => {
             onClick={() => setActiveTab(Columns)}
             className={
               activeTab === Columns
-                ? "font-bold text-white border-b-2"
-                : "text-gray-400"
+                ? "filter-items-active"
+                : "filter-items-inactive"
             }
           >
             {Columns}

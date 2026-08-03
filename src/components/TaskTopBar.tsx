@@ -8,7 +8,7 @@ type Props = {
 
 const TaskTopBar = ({ activeTab, setActiveTab }: Props) => {
   return (
-    <section className="flex flex-row justify-between px-2">
+    <section className="flex flex-row justify-between px-2 py-4">
       <div className="">
         <FilterTab activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>

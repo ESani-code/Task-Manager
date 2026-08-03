@@ -142,3 +142,13 @@ body {
     @apply font-sans;
   }
 }
+
+@layer components {
+  .filter-items-active {
+    @apply px-2 py-1 font-bold text-white bg-accent-foreground/20 rounded-sm;
+  }
+
+  .filter-items-inactive {
+    @apply px-2 py-1 text-gray-400 hover:bg-accent-foreground/5 hover:rounded-sm;
+  }
+}
