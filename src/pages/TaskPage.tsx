@@ -39,14 +39,17 @@ function TaskPage() {
         onDragStart={() => {
           // Snapshot state so we can revert cleanly if the drag is canceled
           previousItems.current = items;
+          console.log(previousItems.current);
         }}
         onDragOver={(event) => {
           // Live-move items between/within columns as the drag happens
           setItems((items) => move(items, event));
+          console.log(items);
         }}
         onDragEnd={(event) => {
           if (event.canceled) {
             setItems(previousItems.current);
+            console.log(previousItems.current);
           }
         }}
       >
