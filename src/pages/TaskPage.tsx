@@ -68,19 +68,24 @@ function TaskPage({ activeTab }: Props) {
               <div className="flex flex-col" key={columnId}>
                 <ColumnHeader columnId={columnId} tasks={tasks} />
                 <Columns key={columnId} id={columnId}>
-                  {items[columnId].map((task, index) => (
-                    <TaskBox
-                      key={task.id}
-                      id={task.id}
-                      index={index}
-                      column={columnId}
-                      title={task.title}
-                      description={task.description}
-                      content={task.content}
-                      footer={task.footer}
-                      handleUpdateTask={handleUpdateTask}
-                    />
-                  ))}
+                  {/* {Object.entries(items).filter(([_, tasks]) => tasks.length ? : <p>Yooo</p>)} */}
+                  {tasks.length == 0 ? (
+                    <p>Yoooo</p>
+                  ) : (
+                    tasks.map((task, index) => (
+                      <TaskBox
+                        key={task.id}
+                        id={task.id}
+                        index={index}
+                        column={columnId}
+                        title={task.title}
+                        description={task.description}
+                        content={task.content}
+                        footer={task.footer}
+                        handleUpdateTask={handleUpdateTask}
+                      />
+                    ))
+                  )}
                 </Columns>
               </div>
             ))}
