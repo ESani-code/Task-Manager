@@ -10,6 +10,7 @@ import ColumnHeader from "../components/ColumnHeader";
 import { useRef, useState } from "react";
 import { type Task } from "../utils/makeTask";
 import { tasks } from "../utils/data";
+import EmptyState from "../components/EmptyState";
 
 type Props = {
   activeTab: string;
@@ -70,7 +71,7 @@ function TaskPage({ activeTab }: Props) {
                 <Columns key={columnId} id={columnId}>
                   {/* {Object.entries(items).filter(([_, tasks]) => tasks.length ? : <p>Yooo</p>)} */}
                   {tasks.length == 0 ? (
-                    <p>Yoooo</p>
+                    <EmptyState />
                   ) : (
                     tasks.map((task, index) => (
                       <TaskBox
