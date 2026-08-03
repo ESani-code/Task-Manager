@@ -8,15 +8,11 @@ import Columns from "../components/Columns";
 import ColumnHeader from "../components/ColumnHeader";
 
 import { useRef, useState } from "react";
-import { type Task, makeTask } from "../utils/makeTask";
+import { type Task } from "../utils/makeTask";
+import { tasks } from "../utils/data";
 
 function TaskPage() {
-  const [items, setItems] = useState<Record<string, Task[]>>({
-    "On Going": [makeTask(1), makeTask(2), makeTask(3)],
-    Paused: [makeTask(4), makeTask(5), makeTask(6)],
-    Upcoming: [makeTask(7), makeTask(8), makeTask(9)],
-    Completed: [makeTask(10), makeTask(11), makeTask(12)],
-  });
+  const [items, setItems] = useState<Record<string, Task[]>>(tasks);
 
   const previousItems = useRef(items);
 
