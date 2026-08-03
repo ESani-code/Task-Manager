@@ -14,10 +14,11 @@ import { type Task, makeTask } from "./utils/makeTask";
 function App() {
   const [items, setItems] = useState<Record<string, Task[]>>({
     "On Going": [makeTask(1), makeTask(2), makeTask(3)],
-    Upcoming: [makeTask(4), makeTask(5), makeTask(6)],
-    Completed: [makeTask(7), makeTask(8), makeTask(9)],
-    Paused: [makeTask(10), makeTask(11), makeTask(12)],
+    Paused: [makeTask(4), makeTask(5), makeTask(6)],
+    Upcoming: [makeTask(7), makeTask(8), makeTask(9)],
+    Completed: [makeTask(10), makeTask(11), makeTask(12)],
   });
+
   const previousItems = useRef(items);
 
   const handleUpdateTask = (

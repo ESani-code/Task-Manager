@@ -8,12 +8,13 @@ import {
   CardTitle,
 } from "./ui/card";
 
-import { Button } from "./ui/button";
+// import { Button } from "./ui/button";
 
 import { useSortable } from "@dnd-kit/react/sortable";
 
 import { type Task } from "../utils/makeTask";
 import { EditableField } from "./ui/EditableField";
+import CardActionPopover from "./ui/CardActionPopover";
 
 type TaskBoxProps = {
   id: string;
@@ -67,12 +68,7 @@ const TaskBox = ({
           />
         </CardDescription>
         <CardAction>
-          <Button
-            variant="secondary"
-            className=" text-white/30 hover:text-white/80 items-center"
-          >
-            <i className="bi bi-three-dots" />
-          </Button>
+          <CardActionPopover />
         </CardAction>
       </CardHeader>
       <CardContent className="text-md text-white">
