@@ -11,7 +11,12 @@ import { useRef, useState } from "react";
 import { type Task } from "../utils/makeTask";
 import { tasks } from "../utils/data";
 
-function TaskPage() {
+type Props = {
+  activeTab: string;
+  setActiveTab?: (tab: string) => void;
+};
+
+function TaskPage({ activeTab }: Props) {
   const [items, setItems] = useState<Record<string, Task[]>>(tasks);
 
   const previousItems = useRef(items);
@@ -54,26 +59,31 @@ function TaskPage() {
         }}
       >
         <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
-          {Object.entries(items).map(([columnId, tasks]) => (
-            <div className="flex flex-col" key={columnId}>
-              <ColumnHeader columnId={columnId} tasks={tasks} />
-              <Columns key={columnId} id={columnId}>
-                {items[columnId].map((task, index) => (
-                  <TaskBox
-                    key={task.id}
-                    id={task.id}
-                    index={index}
-                    column={columnId}
-                    title={task.title}
-                    description={task.description}
-                    content={task.content}
-                    footer={task.footer}
-                    handleUpdateTask={handleUpdateTask}
-                  />
-                ))}
-              </Columns>
-            </div>
-          ))}
+          {Object.entries(items)
+            .filter(
+              ([columnId]) =>
+                activeTab === "All Tasks" || activeTab === columnId,
+            )
+            .map(([columnId, tasks]) => (
+              <div className="flex flex-col" key={columnId}>
+                <ColumnHeader columnId={columnId} tasks={tasks} />
+                <Columns key={columnId} id={columnId}>
+                  {items[columnId].map((task, index) => (
+                    <TaskBox
+                      key={task.id}
+                      id={task.id}
+                      index={index}
+                      column={columnId}
+                      title={task.title}
+                      description={task.description}
+                      content={task.content}
+                      footer={task.footer}
+                      handleUpdateTask={handleUpdateTask}
+                    />
+                  ))}
+                </Columns>
+              </div>
+            ))}
         </div>
       </DragDropProvider>
     </>
