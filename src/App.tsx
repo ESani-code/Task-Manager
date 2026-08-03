@@ -12,6 +12,14 @@ import { useRef, useState } from "react";
 import { type Task, makeTask } from "./utils/makeTask";
 
 function App() {
+  const [items, setItems] = useState<Record<string, Task[]>>({
+    "On Going": [makeTask(1), makeTask(2), makeTask(3)],
+    Upcoming: [makeTask(4), makeTask(5), makeTask(6)],
+    Completed: [makeTask(7), makeTask(8), makeTask(9)],
+    Paused: [makeTask(10), makeTask(11), makeTask(12)],
+  });
+  const previousItems = useRef(items);
+
   const handleUpdateTask = (
     columnId: string | number,
     taskId: string,
@@ -28,14 +36,6 @@ function App() {
       return { ...prevItems, [columnId]: updatedColumn };
     });
   };
-
-  const [items, setItems] = useState<Record<string, Task[]>>({
-    "On Going": [makeTask(1), makeTask(2), makeTask(3)],
-    Upcoming: [makeTask(4), makeTask(5), makeTask(6)],
-    Completed: [makeTask(7), makeTask(8), makeTask(9)],
-    Paused: [makeTask(10), makeTask(11), makeTask(12)],
-  });
-  const previousItems = useRef(items);
 
   return (
     <>
@@ -70,7 +70,7 @@ function App() {
                       description={task.description}
                       content={task.content}
                       footer={task.footer}
-                      onUpdate={handleUpdateTask}
+                      handleUpdateTask={handleUpdateTask}
                     />
                   ))}
                 </Columns>

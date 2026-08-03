@@ -23,7 +23,7 @@ type TaskBoxProps = {
   content: string;
   footer: string;
   column: string | number;
-  onUpdate: (
+  handleUpdateTask: (
     columnId: string | number,
     taskId: string,
     field: keyof Task,
@@ -39,7 +39,7 @@ const TaskBox = ({
   content = "Lorem Ipsum Text",
   footer = "Footer Text content here",
   column = 1,
-  onUpdate,
+  handleUpdateTask,
 }: TaskBoxProps) => {
   const { ref, isDragging } = useSortable({
     id,
@@ -55,14 +55,14 @@ const TaskBox = ({
         <CardTitle className="text-lg pb-2">
           <EditableField
             value={title}
-            onSave={(newVal) => onUpdate(column, id, "title", newVal)}
+            onSave={(newVal) => handleUpdateTask(column, id, "title", newVal)}
           />
         </CardTitle>
         <CardDescription className="text-xs">
           <EditableField
-            value={title}
+            value={description}
             onSave={(newVal) =>
-              onUpdate(description, id, "description", newVal)
+              handleUpdateTask(column, id, "description", newVal)
             }
           />
         </CardDescription>
@@ -78,8 +78,9 @@ const TaskBox = ({
       <CardContent className="text-md text-white">
         <p>
           <EditableField
-            value={title}
-            onSave={(newVal) => onUpdate(content, id, "content", newVal)}
+            value={content}
+            onSave={(newVal) => handleUpdateTask(column, id, "content", newVal)}
+            multiline={true}
           />
         </p>
       </CardContent>

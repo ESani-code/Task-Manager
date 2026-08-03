@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-type EditableFieldProps = {
+type Props = {
   value: string;
   onSave: (newValue: string) => void;
   textClassName?: string;
@@ -14,7 +14,7 @@ export const EditableField = ({
   textClassName = "",
   inputClassName = "",
   multiline = false,
-}: EditableFieldProps) => {
+}: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
 
