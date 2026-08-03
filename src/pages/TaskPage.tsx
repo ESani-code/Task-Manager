@@ -39,46 +39,44 @@ function TaskPage() {
 
   return (
     <>
-      <section className="mx-4 flex items-center justify-center">
-        <DragDropProvider
-          onDragStart={() => {
-            // Snapshot state so we can revert cleanly if the drag is canceled
-            previousItems.current = items;
-          }}
-          onDragOver={(event) => {
-            // Live-move items between/within columns as the drag happens
-            setItems((items) => move(items, event));
-          }}
-          onDragEnd={(event) => {
-            if (event.canceled) {
-              setItems(previousItems.current);
-            }
-          }}
-        >
-          <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
-            {Object.entries(items).map(([columnId, tasks]) => (
-              <div className="flex flex-col" key={columnId}>
-                <ColumnHeader columnId={columnId} tasks={tasks} />
-                <Columns key={columnId} id={columnId}>
-                  {items[columnId].map((task, index) => (
-                    <TaskBox
-                      key={task.id}
-                      id={task.id}
-                      index={index}
-                      column={columnId}
-                      title={task.title}
-                      description={task.description}
-                      content={task.content}
-                      footer={task.footer}
-                      handleUpdateTask={handleUpdateTask}
-                    />
-                  ))}
-                </Columns>
-              </div>
-            ))}
-          </div>
-        </DragDropProvider>
-      </section>
+      <DragDropProvider
+        onDragStart={() => {
+          // Snapshot state so we can revert cleanly if the drag is canceled
+          previousItems.current = items;
+        }}
+        onDragOver={(event) => {
+          // Live-move items between/within columns as the drag happens
+          setItems((items) => move(items, event));
+        }}
+        onDragEnd={(event) => {
+          if (event.canceled) {
+            setItems(previousItems.current);
+          }
+        }}
+      >
+        <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
+          {Object.entries(items).map(([columnId, tasks]) => (
+            <div className="flex flex-col" key={columnId}>
+              <ColumnHeader columnId={columnId} tasks={tasks} />
+              <Columns key={columnId} id={columnId}>
+                {items[columnId].map((task, index) => (
+                  <TaskBox
+                    key={task.id}
+                    id={task.id}
+                    index={index}
+                    column={columnId}
+                    title={task.title}
+                    description={task.description}
+                    content={task.content}
+                    footer={task.footer}
+                    handleUpdateTask={handleUpdateTask}
+                  />
+                ))}
+              </Columns>
+            </div>
+          ))}
+        </div>
+      </DragDropProvider>
     </>
   );
 }
