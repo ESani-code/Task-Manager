@@ -11,14 +11,16 @@ import { useRef, useState } from "react";
 import { type Task } from "../utils/makeTask";
 import { tasks } from "../utils/data";
 import EmptyState from "../components/EmptyState";
+import TaskTopBar from "../components/TaskTopBar";
 
-type Props = {
-  activeTab: string;
-  setActiveTab?: (tab: string) => void;
-};
+// type Props = {
+//   activeTab: string;
+//   setActiveTab?: (tab: string) => void;
+// };
 
-function TaskPage({ activeTab }: Props) {
+function TaskPage() {
   const [items, setItems] = useState<Record<string, Task[]>>(tasks);
+  const [activeTab, setActiveTab] = useState<string>("All Tasks");
 
   const previousItems = useRef(items);
 
@@ -41,57 +43,60 @@ function TaskPage({ activeTab }: Props) {
 
   return (
     <>
-      <DragDropProvider
-        onDragStart={() => {
-          // Snapshot state so we can revert cleanly if the drag is canceled
-          previousItems.current = items;
-          console.log(previousItems.current);
-        }}
-        onDragOver={(event) => {
-          // Live-move items between/within columns as the drag happens
-          setItems((items) => move(items, event));
-          console.log(items);
-        }}
-        onDragEnd={(event) => {
-          if (event.canceled) {
-            setItems(previousItems.current);
+      <TaskTopBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <section className="mx-2 flex items-center justify-center">
+        <DragDropProvider
+          onDragStart={() => {
+            // Snapshot state so we can revert cleanly if the drag is canceled
+            previousItems.current = items;
             console.log(previousItems.current);
-          }
-        }}
-      >
-        <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
-          {Object.entries(items)
-            .filter(
-              ([columnId]) =>
-                activeTab === "All Tasks" || activeTab === columnId,
-            )
-            .map(([columnId, tasks]) => (
-              <div className="flex flex-col" key={columnId}>
-                <ColumnHeader columnId={columnId} tasks={tasks} />
-                <Columns key={columnId} id={columnId}>
-                  {/* {Object.entries(items).filter(([_, tasks]) => tasks.length ? : <p>Yooo</p>)} */}
-                  {tasks.length == 0 ? (
-                    <EmptyState />
-                  ) : (
-                    tasks.map((task, index) => (
-                      <TaskBox
-                        key={task.id}
-                        id={task.id}
-                        index={index}
-                        column={columnId}
-                        title={task.title}
-                        description={task.description}
-                        content={task.content}
-                        footer={task.footer}
-                        handleUpdateTask={handleUpdateTask}
-                      />
-                    ))
-                  )}
-                </Columns>
-              </div>
-            ))}
-        </div>
-      </DragDropProvider>
+          }}
+          onDragOver={(event) => {
+            // Live-move items between/within columns as the drag happens
+            setItems((items) => move(items, event));
+            console.log(items);
+          }}
+          onDragEnd={(event) => {
+            if (event.canceled) {
+              setItems(previousItems.current);
+              console.log(previousItems.current);
+            }
+          }}
+        >
+          <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 justify-center content-start items-start">
+            {Object.entries(items)
+              .filter(
+                ([columnId]) =>
+                  activeTab === "All Tasks" || activeTab === columnId,
+              )
+              .map(([columnId, tasks]) => (
+                <div className="flex flex-col" key={columnId}>
+                  <ColumnHeader columnId={columnId} tasks={tasks} />
+                  <Columns key={columnId} id={columnId}>
+                    {/* {Object.entries(items).filter(([_, tasks]) => tasks.length ? : <p>Yooo</p>)} */}
+                    {tasks.length == 0 ? (
+                      <EmptyState />
+                    ) : (
+                      tasks.map((task, index) => (
+                        <TaskBox
+                          key={task.id}
+                          id={task.id}
+                          index={index}
+                          column={columnId}
+                          title={task.title}
+                          description={task.description}
+                          content={task.content}
+                          footer={task.footer}
+                          handleUpdateTask={handleUpdateTask}
+                        />
+                      ))
+                    )}
+                  </Columns>
+                </div>
+              ))}
+          </div>
+        </DragDropProvider>
+      </section>
     </>
   );
 }

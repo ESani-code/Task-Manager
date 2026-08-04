@@ -6,13 +6,15 @@ type Props = {
   setActiveTab: (tab: string) => void;
 };
 
+function createTask() {}
+
 const TaskTopBar = ({ activeTab, setActiveTab }: Props) => {
   return (
     <section className="flex flex-row justify-between px-2 py-4">
       <div className="">
         <FilterTab activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
-      <Button className="bg-sidebar-foreground">
+      <Button className="bg-sidebar-foreground" onClick={() => createTask()}>
         <i className="bi bi-plus-circle" />
         <span>Create Task</span>
       </Button>
