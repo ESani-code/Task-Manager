@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import {
   Card,
+  CardAction,
   CardContent,
   CardFooter,
   CardHeader,
@@ -64,6 +65,9 @@ const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Create your Task</CardTitle>
+          <CardAction>
+            <i onClick={onClose} className="bi bi-x-lg" />
+          </CardAction>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
