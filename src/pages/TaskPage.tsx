@@ -1,17 +1,17 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 
+import { useRef, useState } from "react";
 import { DragDropProvider } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
 
 import TaskBox from "../components/TaskBox";
 import Columns from "../components/Columns";
 import ColumnHeader from "../components/ColumnHeader";
-
-import { useRef, useState } from "react";
-import { type Task } from "../utils/makeTask";
-import { tasks } from "../utils/data";
 import EmptyState from "../components/EmptyState";
 import TaskTopBar from "../components/TaskTopBar";
+
+import { type Task } from "../utils/makeTask";
+import { tasks } from "../utils/data";
 
 // type Props = {
 //   activeTab: string;
