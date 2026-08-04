@@ -1,7 +1,6 @@
 import { Button } from "./ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -10,14 +9,29 @@ import {
 } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import type { Task } from "../utils/makeTask";
+import { useState } from "react";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  onCreate: (columnId: string, task: Task) => void;
 };
 
 const TaskModal = ({ isOpen, onClose }: Props) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
+  const [column, setColumn] = useState("");
+
   if (!isOpen) return null;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(e);
+    console.log("YOooo");
+
+    onClose();
+  };
 
   return (
     <>
@@ -27,43 +41,46 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
           <CardDescription>
             Enter your email below to login to your account
           </CardDescription>
-          <CardAction>
-            <Button variant="link">Sign Up</Button>
-          </CardAction>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="Title">Task Title</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Task Title"
                 />
               </div>
+
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-                <Input id="password" type="password" required />
+                <Label htmlFor="Description">Task Description</Label>
+                <Input
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Description for you task"
+                />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="Title">Task Content</Label>
+                <textarea
+                  className="w-full bg-transparent border border-white/20 rounded p-2 outline-none resize-none"
+                  id="content"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  placeholder="Type the content & details of your task here, and lets get to work"
+                />
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full">
-            Login
-          </Button>
-          <Button variant="outline" className="w-full" onClick={onClose}>
-            Login with Google
+          <Button type="submit" className="w-full" onClick={onClose}>
+            Create Task
           </Button>
         </CardFooter>
       </Card>
