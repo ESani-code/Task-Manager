@@ -2,7 +2,6 @@ import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -64,10 +63,7 @@ const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+          <CardTitle>Create your Task</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
