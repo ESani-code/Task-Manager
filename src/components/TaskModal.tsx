@@ -10,7 +10,18 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import type { Task } from "../utils/makeTask";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+
 import { useState } from "react";
+import { tasks } from "../utils/data";
 
 type Props = {
   isOpen: boolean;
@@ -23,6 +34,8 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
   const [column, setColumn] = useState("");
+
+  const taskType = [...Object.keys(tasks)];
 
   if (!isOpen) return null;
   const handleSubmit = (e: React.FormEvent) => {
@@ -75,6 +88,23 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
                   placeholder="Type the content & details of your task here, and lets get to work"
                 />
               </div>
+
+              <Select value={column}>
+                <SelectTrigger className="w-45">
+                  <SelectValue placeholder="State of Task" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup
+                    onChange={(e) => setColumn(e.target.textContent)}
+                  >
+                    {taskType.map((item) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </form>
         </CardContent>
