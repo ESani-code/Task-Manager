@@ -41,9 +41,20 @@ function TaskPage() {
     });
   };
 
+  const createTask = (columnId: string, newTask: Task) => {
+    setItems((prevItems) => ({
+      ...prevItems,
+      [columnId]: [...prevItems[columnId], newTask],
+    }));
+  };
+
   return (
     <>
-      <TaskTopBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <TaskTopBar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        createTask={createTask}
+      />
       <section className="mx-2 flex items-center justify-center">
         <DragDropProvider
           onDragStart={() => {

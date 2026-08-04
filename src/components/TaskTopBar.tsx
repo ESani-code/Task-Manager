@@ -1,14 +1,14 @@
+import type { Task } from "../utils/makeTask";
 import FilterTab from "./FilterTab";
 import { Button } from "./ui/button";
 
 type Props = {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  createTask: (columnId: string, newTask: Task) => void;
 };
 
-function createTask() {}
-
-const TaskTopBar = ({ activeTab, setActiveTab }: Props) => {
+const TaskTopBar = ({ activeTab, setActiveTab, createTask }: Props) => {
   return (
     <section className="flex flex-row justify-between px-2 py-4">
       <div className="">
