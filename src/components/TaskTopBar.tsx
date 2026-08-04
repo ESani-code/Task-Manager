@@ -30,7 +30,11 @@ const TaskTopBar = ({ activeTab, setActiveTab, createTask }: Props) => {
         </Button>
       </section>
 
-      <TaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <TaskModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onCreate={createTask}
+      />
     </>
   );
 };

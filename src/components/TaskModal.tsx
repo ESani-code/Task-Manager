@@ -29,7 +29,7 @@ type Props = {
   onCreate: (columnId: string, task: Task) => void;
 };
 
-const TaskModal = ({ isOpen, onClose }: Props) => {
+const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
@@ -43,6 +43,20 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
     console.log(e);
     console.log("YOooo");
 
+    const newTask: Task = {
+      id: `task-${Date.now()}`, // Generate a unique ID
+      title: title || "New Task",
+      description: description || "No description provided.",
+      content: "Click to edit content...",
+      footer: "Card Created",
+    };
+
+    onCreate(column, newTask);
+
+    // Reset form and close
+    setTitle("");
+    setContent("");
+    setDescription("");
     onClose();
   };
 
@@ -89,14 +103,15 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
                 />
               </div>
 
-              <Select value={column}>
+              <Select
+                value={column}
+                onValueChange={(value) => setColumn(value)}
+              >
                 <SelectTrigger className="w-45">
                   <SelectValue placeholder="State of Task" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectGroup
-                    onChange={(e) => setColumn(e.target.textContent)}
-                  >
+                  <SelectGroup>
                     {taskType.map((item) => (
                       <SelectItem key={item} value={item}>
                         {item}
@@ -109,7 +124,7 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full" onClick={onClose}>
+          <Button type="submit" className="w-full" onClick={handleSubmit}>
             Create Task
           </Button>
         </CardFooter>
