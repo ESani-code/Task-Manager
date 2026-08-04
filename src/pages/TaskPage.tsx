@@ -13,11 +13,6 @@ import TaskTopBar from "../components/TaskTopBar";
 import { type Task } from "../utils/makeTask";
 import { tasks } from "../utils/data";
 
-// type Props = {
-//   activeTab: string;
-//   setActiveTab?: (tab: string) => void;
-// };
-
 function TaskPage() {
   const [items, setItems] = useState<Record<string, Task[]>>(tasks);
   const [activeTab, setActiveTab] = useState<string>("All Tasks");
@@ -84,7 +79,6 @@ function TaskPage() {
                 <div className="flex flex-col" key={columnId}>
                   <ColumnHeader columnId={columnId} tasks={tasks} />
                   <Columns key={columnId} id={columnId}>
-                    {/* {Object.entries(items).filter(([_, tasks]) => tasks.length ? : <p>Yooo</p>)} */}
                     {tasks.length == 0 ? (
                       <EmptyState />
                     ) : (
