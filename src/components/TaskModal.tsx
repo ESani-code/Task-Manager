@@ -66,7 +66,10 @@ const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
         <CardHeader>
           <CardTitle>Create your Task</CardTitle>
           <CardAction>
-            <i onClick={onClose} className="bi bi-x-lg" />
+            <i
+              onClick={onClose}
+              className="bi bi-x-lg text-white/50 hover:text-white"
+            />
           </CardAction>
         </CardHeader>
         <CardContent>
