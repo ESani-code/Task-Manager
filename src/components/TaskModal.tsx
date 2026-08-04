@@ -99,23 +99,26 @@ const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
                 />
               </div>
 
-              <Select
-                value={column}
-                onValueChange={(value) => setColumn(value)}
-              >
-                <SelectTrigger className="w-45">
-                  <SelectValue placeholder="State of Task" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {taskType.map((item) => (
-                      <SelectItem key={item} value={item}>
-                        {item}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="Title">Task Type</Label>
+                <Select
+                  value={column}
+                  onValueChange={(value) => setColumn(value)}
+                >
+                  <SelectTrigger className="w-45">
+                    <SelectValue placeholder="State of Task" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {taskType.map((item) => (
+                        <SelectItem key={item} value={item}>
+                          {item}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </form>
         </CardContent>
