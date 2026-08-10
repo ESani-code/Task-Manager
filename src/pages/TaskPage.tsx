@@ -12,9 +12,11 @@ import TaskTopBar from "../components/TaskTopBar";
 
 import { type Task } from "../utils/makeTask";
 import { tasks } from "../utils/data";
+import { useTaskStore } from "../store/useTaskStore";
 
 function TaskPage() {
   const [items, setItems] = useState<Record<string, Task[]>>(tasks);
+  // const [items, setItems] = useTaskStore()
   const [activeTab, setActiveTab] = useState<string>("All Tasks");
 
   const previousItems = useRef(items);
