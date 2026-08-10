@@ -1,5 +1,6 @@
 // import { useState } from "react";
-import { tasks } from "../utils/data";
+import { useTaskStore } from "../store/useTaskStore";
+// import { tasks } from "../utils/data";
 
 type Props = {
   activeTab: string;
@@ -8,6 +9,7 @@ type Props = {
 
 const FilterTab = ({ activeTab, setActiveTab }: Props) => {
   // const [Tasks] = useMemo<Record<string, Task[]>>(tasks);
+  const tasks = useTaskStore((state) => state.tasks);
   return (
     <ul className="flex flex-row gap-6 text-sm p-3 bg-sidebar rounded-lg items-center">
       <li
@@ -20,7 +22,7 @@ const FilterTab = ({ activeTab, setActiveTab }: Props) => {
       >
         All Tasks <span>{Object.values(tasks).flat().length}</span>
       </li>
-      {Object.entries(tasks).map(([Columns]) => {
+      {Object.entries(tasks).map(([Columns, task]) => {
         return (
           <li
             key={Columns}
@@ -31,7 +33,7 @@ const FilterTab = ({ activeTab, setActiveTab }: Props) => {
                 : "filter-items-inactive"
             }
           >
-            {Columns}
+            {Columns} {task.length}
           </li>
         );
       })}

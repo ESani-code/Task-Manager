@@ -21,21 +21,24 @@ import {
 } from "./ui/select";
 
 import { useState } from "react";
-import { tasks } from "../utils/data";
+// import { tasks } from "../utils/data";
+import { useTaskStore } from "../store/useTaskStore";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  onCreate: (columnId: string, task: Task) => void;
+  // onCreate: (columnId: string, task: Task) => void;
 };
 
-const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
+const TaskModal = ({ isOpen, onClose }: Props) => {
+  const tasks = useTaskStore((state) => state.tasks);
+  const taskType = Object.keys(tasks);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
-  const [column, setColumn] = useState("");
-
-  const taskType = [...Object.keys(tasks)];
+  const [column, setColumn] = useState(taskType[0] || "On Going");
+  const createTask = useTaskStore((state) => state.createTask);
 
   if (!isOpen) return null;
   const handleSubmit = (e: React.FormEvent) => {
@@ -51,7 +54,7 @@ const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
       footer: "Card Created",
     };
 
-    onCreate(column, newTask);
+    createTask(column, newTask);
 
     // Reset form and close
     setTitle("");
@@ -72,8 +75,8 @@ const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
             />
           </CardAction>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <CardContent>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="Title">Task Title</Label>
@@ -127,13 +130,13 @@ const TaskModal = ({ isOpen, onClose, onCreate }: Props) => {
                 </Select>
               </div>
             </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full" onClick={handleSubmit}>
-            Create Task
-          </Button>
-        </CardFooter>
+          </CardContent>
+          <CardFooter className="flex-col gap-2">
+            <Button type="submit" className="w-full" onClick={handleSubmit}>
+              Create Task
+            </Button>
+          </CardFooter>
+        </form>
       </Card>
     </div>
   );

@@ -1,19 +1,21 @@
-import type { Task } from "../utils/makeTask";
+// import type { Task } from "../utils/makeTask";
 import { Button } from "./ui/button";
 
 import TaskModal from "./TaskModal";
 import FilterTab from "./FilterTab";
 
 import { useState } from "react";
+// import { useTaskStore } from "../store/useTaskStore";
 
 type Props = {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  createTask: (columnId: string, newTask: Task) => void;
+  // createTask: (columnId: string, newTask: Task) => void;
 };
 
-const TaskTopBar = ({ activeTab, setActiveTab, createTask }: Props) => {
+const TaskTopBar = ({ activeTab, setActiveTab }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // const createTask = useTaskStore((state) => state.createTask);
 
   return (
     <>
@@ -33,7 +35,7 @@ const TaskTopBar = ({ activeTab, setActiveTab, createTask }: Props) => {
       <TaskModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onCreate={createTask}
+        // onCreate={createTask}
       />
     </>
   );

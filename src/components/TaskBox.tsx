@@ -12,9 +12,10 @@ import {
 
 import { useSortable } from "@dnd-kit/react/sortable";
 
-import { type Task } from "../utils/makeTask";
+// import { type Task } from "../utils/makeTask";
 import { EditableField } from "./ui/EditableField";
 import CardActionPopover from "./ui/CardActionPopover";
+import { useTaskStore } from "../store/useTaskStore";
 
 type TaskBoxProps = {
   id: string;
@@ -24,12 +25,12 @@ type TaskBoxProps = {
   content: string;
   footer: string;
   column: string | number;
-  handleUpdateTask: (
-    columnId: string | number,
-    taskId: string,
-    field: keyof Task,
-    newValue: string,
-  ) => void;
+  // handleUpdateTask: (
+  //   columnId: string | number,
+  //   taskId: string,
+  //   field: keyof Task,
+  //   newValue: string,
+  // ) => void;
 };
 
 const TaskBox = ({
@@ -40,7 +41,6 @@ const TaskBox = ({
   content = "Lorem Ipsum Text",
   footer = "Footer Text content here",
   column = 1,
-  handleUpdateTask,
 }: TaskBoxProps) => {
   const { ref, isDragging } = useSortable({
     id,
@@ -49,6 +49,8 @@ const TaskBox = ({
     accept: "item",
     group: column,
   });
+
+  const updateTask = useTaskStore((state) => state.updateTask);
 
   return (
     <Card
@@ -60,15 +62,13 @@ const TaskBox = ({
         <CardTitle className="text-lg pb-2">
           <EditableField
             value={title}
-            onSave={(newVal) => handleUpdateTask(column, id, "title", newVal)}
+            onSave={(newVal) => updateTask(column, id, "title", newVal)}
           />
         </CardTitle>
         <CardDescription className="text-xs">
           <EditableField
             value={description}
-            onSave={(newVal) =>
-              handleUpdateTask(column, id, "description", newVal)
-            }
+            onSave={(newVal) => updateTask(column, id, "description", newVal)}
           />
         </CardDescription>
         <CardAction>
@@ -79,7 +79,7 @@ const TaskBox = ({
         <p>
           <EditableField
             value={content}
-            onSave={(newVal) => handleUpdateTask(column, id, "content", newVal)}
+            onSave={(newVal) => updateTask(column, id, "content", newVal)}
             multiline={true}
           />
         </p>
