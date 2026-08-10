@@ -1,3 +1,4 @@
+// import { useState } from "react";
 import { tasks } from "../utils/data";
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
 };
 
 const FilterTab = ({ activeTab, setActiveTab }: Props) => {
+  // const [Tasks] = useMemo<Record<string, Task[]>>(tasks);
   return (
     <ul className="flex flex-row gap-6 text-sm p-3 bg-sidebar rounded-lg items-center">
       <li
@@ -16,7 +18,7 @@ const FilterTab = ({ activeTab, setActiveTab }: Props) => {
             : "filter-items-inactive"
         }
       >
-        All Tasks
+        All Tasks <span>{Object.values(tasks).flat().length}</span>
       </li>
       {Object.entries(tasks).map(([Columns]) => {
         return (
