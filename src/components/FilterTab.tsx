@@ -33,7 +33,7 @@ const FilterTab = ({ activeTab, setActiveTab }: Props) => {
                 : "filter-items-inactive"
             }
           >
-            {Columns} {task.length}
+            {Columns} <span className="font-bold">{task.length}</span>
           </li>
         );
       })}
