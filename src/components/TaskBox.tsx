@@ -8,8 +8,6 @@ import {
   CardTitle,
 } from "./ui/card";
 
-// import { Button } from "./ui/button";
-
 import { useSortable } from "@dnd-kit/react/sortable";
 
 // import { type Task } from "../utils/makeTask";
@@ -25,12 +23,6 @@ type TaskBoxProps = {
   content: string;
   footer: string;
   column: string | number;
-  // handleUpdateTask: (
-  //   columnId: string | number,
-  //   taskId: string,
-  //   field: keyof Task,
-  //   newValue: string,
-  // ) => void;
 };
 
 const TaskBox = ({

@@ -21,7 +21,6 @@ import {
 } from "./ui/select";
 
 import { useState } from "react";
-// import { tasks } from "../utils/data";
 import { useTaskStore } from "../store/useTaskStore";
 
 type Props = {

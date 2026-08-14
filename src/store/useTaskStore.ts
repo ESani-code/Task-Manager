@@ -31,7 +31,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
 
   updateTask: (columnId, taskId, field, newValue) => {
     set((state) => {
-      // Logic migrated from TaskPage.tsx
+      // Logic from TaskPage.tsx
       const updatedColumn = state.tasks[columnId as string].map((task) =>
         task.id === taskId ? { ...task, [field]: newValue } : task,
       );
@@ -41,23 +41,13 @@ export const useTaskStore = create<TaskStore>((set) => ({
 
   createTask: (columnId, newTask) => {
     set((state) => ({
-      // Logic migrated from TaskPage.tsx[cite: 38]
+      // Logic migrated from TaskPage.tsx
       tasks: {
         ...state.tasks,
         [columnId]: [...state.tasks[columnId], newTask],
       },
     }));
   },
-
-  // Implementing Edit Task functionality
-  // editTask: (taskId, columnId, newValue) => {
-  //   set((state) => {
-  //     const edittedTask = state.tasks[columnId as string].map((task) =>
-  //       task.id === taskId ? { ...task, [taskId]: newValue } : task,
-  //     );
-  //     return { tasks: { ...state.tasks, [columnId]: edittedTask } };
-  //   });
-  // },
 
   editTask: (taskId, newColumnId, updatedTask) => {
     set((state) => {

@@ -10,48 +10,17 @@ import ColumnHeader from "../components/ColumnHeader";
 import EmptyState from "../components/EmptyState";
 import TaskTopBar from "../components/TaskTopBar";
 
-// import { type Task } from "../utils/makeTask";
-// import { tasks } from "../utils/data";
 import { useTaskStore } from "../store/useTaskStore";
 
 function TaskPage() {
-  // const [items, setItems] = useState<Record<string, Task[]>>(tasks);
   const { tasks, setTasks } = useTaskStore();
   const [activeTab, setActiveTab] = useState<string>("All Tasks");
 
   const previousItems = useRef(tasks);
 
-  // const handleUpdateTask = (
-  //   columnId: string | number,
-  //   taskId: string,
-  //   field: keyof Task,
-  //   newValue: string,
-  // ) => {
-  //   setItems((prevItems) => {
-  //     // Map over the specific column's tasks and update the one that matches the ID
-  //     const updatedColumn = prevItems[columnId].map((task) =>
-  //       task.id === taskId ? { ...task, [field]: newValue } : task,
-  //     );
-
-  //     // Return the new state object
-  //     return { ...prevItems, [columnId]: updatedColumn };
-  //   });
-  // };
-
-  // const createTask = (columnId: string, newTask: Task) => {
-  //   setItems((prevItems) => ({
-  //     ...prevItems,
-  //     [columnId]: [...prevItems[columnId], newTask],
-  //   }));
-  // };
-
   return (
     <>
-      <TaskTopBar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        // createTask={createTask}
-      />
+      <TaskTopBar activeTab={activeTab} setActiveTab={setActiveTab} />
       <section className="mx-2 flex items-center justify-center">
         <DragDropProvider
           onDragStart={() => {
@@ -94,7 +63,6 @@ function TaskPage() {
                           description={task.description}
                           content={task.content}
                           footer={task.footer}
-                          // handleUpdateTask={handleUpdateTask}
                         />
                       ))
                     )}

@@ -21,13 +21,11 @@ import {
 } from "./ui/select";
 
 import { useState } from "react";
-// import { tasks } from "../utils/data";
 import { useTaskStore } from "../store/useTaskStore";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  // onCreate: (columnId: string, task: Task) => void;
 };
 
 const TaskModal = ({ isOpen, onClose }: Props) => {
@@ -47,7 +45,7 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
     console.log("YOooo");
 
     const newTask: Task = {
-      id: `task-${Date.now()}`, // Generate a unique ID
+      id: `task-${Date.now()}`,
       title: title || "New Task",
       description: description || "No description provided.",
       content: "Click to edit content...",
