@@ -72,7 +72,15 @@ const TaskBox = ({
           />
         </CardDescription>
         <CardAction>
-          <CardActionPopover />
+          <CardActionPopover
+            id={id}
+            index={index}
+            title={title}
+            description={description}
+            content={content}
+            footer={footer}
+            column={column}
+          />
         </CardAction>
       </CardHeader>
       <CardContent className="text-md text-white">

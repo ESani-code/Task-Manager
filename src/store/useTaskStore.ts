@@ -10,7 +10,7 @@ type TaskStore = {
     field: keyof Task,
     newValue: string,
   ) => void;
-  createTask: (columnId: string, newTask: Task, taskId: string) => void;
+  createTask: (columnId: string, newTask: Task) => void;
 
   setTasks: (
     updater: (prevTasks: Record<string, Task[]>) => Record<string, Task[]>,
