@@ -52,7 +52,7 @@ const EditModal = ({
   const [description, setDescription] = useState(task_description || "");
   const [content, setContent] = useState(task_content || "");
   const [column, setColumn] = useState(task_column || "On Going");
-  const [footer] = useState(task_footer);
+  const [footer, setFooter] = useState(task_footer);
   const editTask = useTaskStore((state) => state.editTask);
 
   if (!isOpen) return null;
@@ -71,10 +71,10 @@ const EditModal = ({
 
     editTask(task_id, String(column), newTask);
 
-    // Reset form and close
-    setTitle("");
-    setContent("");
-    setDescription("");
+    setTitle(title);
+    setContent(content);
+    setDescription(description);
+    setFooter(footer);
 
     onClose();
   };
