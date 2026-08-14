@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 type Props = {
   id: string;
-  index: number;
+
   title: string;
   description: string;
   content: string;
@@ -17,7 +17,7 @@ type Props = {
 
 const CardActionPopover = ({
   id,
-  index,
+
   title,
   description,
   content,
@@ -58,7 +58,6 @@ const CardActionPopover = ({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         task_id={id}
-        task_index={index}
         task_title={title}
         task_description={description}
         task_content={content}

@@ -50,12 +50,45 @@ export const useTaskStore = create<TaskStore>((set) => ({
   },
 
   // Implementing Edit Task functionality
-  editTask: (taskId, columnId, newValue) => {
+  // editTask: (taskId, columnId, newValue) => {
+  //   set((state) => {
+  //     const edittedTask = state.tasks[columnId as string].map((task) =>
+  //       task.id === taskId ? { ...task, [taskId]: newValue } : task,
+  //     );
+  //     return { tasks: { ...state.tasks, [columnId]: edittedTask } };
+  //   });
+  // },
+
+  editTask: (taskId, newColumnId, updatedTask) => {
     set((state) => {
-      const edittedTask = state.tasks[columnId as string].map((task) =>
-        task.id === taskId ? { ...task, [taskId]: newValue } : task,
+      // Find the current column containing the task
+      const currentColumnId = Object.keys(state.tasks).find((col) =>
+        state.tasks[col].some((t) => t.id === taskId),
       );
-      return { tasks: { ...state.tasks, [columnId]: edittedTask } };
+
+      if (!currentColumnId) return state;
+
+      // Case A: Editing within the SAME column
+      if (currentColumnId === newColumnId) {
+        const updatedColumn = state.tasks[currentColumnId].map((task) =>
+          task.id === taskId ? updatedTask : task,
+        );
+        return { tasks: { ...state.tasks, [currentColumnId]: updatedColumn } };
+      }
+
+      // Case B: Task moved to a DIFFERENT column
+      const sourceColumn = state.tasks[currentColumnId].filter(
+        (task) => task.id !== taskId,
+      );
+      const targetColumn = [...state.tasks[newColumnId], updatedTask];
+
+      return {
+        tasks: {
+          ...state.tasks,
+          [currentColumnId]: sourceColumn,
+          [newColumnId]: targetColumn,
+        },
+      };
     });
   },
 }));

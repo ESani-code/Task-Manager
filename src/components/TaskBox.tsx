@@ -74,7 +74,6 @@ const TaskBox = ({
         <CardAction>
           <CardActionPopover
             id={id}
-            index={index}
             title={title}
             description={description}
             content={content}

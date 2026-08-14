@@ -28,7 +28,6 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   task_id: string;
-  task_index: number;
   task_title: string;
   task_description: string;
   task_content: string;
@@ -40,7 +39,6 @@ const EditModal = ({
   isOpen,
   onClose,
   task_id,
-  task_index,
   task_title,
   task_description,
   task_content,
@@ -54,7 +52,7 @@ const EditModal = ({
   const [description, setDescription] = useState(task_description || "");
   const [content, setContent] = useState(task_content || "");
   const [column, setColumn] = useState(task_column || "On Going");
-  const [footer, setFooter] = useState(task_footer);
+  const [footer] = useState(task_footer);
   const editTask = useTaskStore((state) => state.editTask);
 
   if (!isOpen) return null;
@@ -64,19 +62,20 @@ const EditModal = ({
     console.log("YOooo");
 
     const newTask: Task = {
-      id: `task-${Date.now()}`, // Generate a unique ID
+      id: task_id, // Generate a unique ID
       title: title || "New Task",
       description: description || "No description provided.",
       content: content,
       footer: footer,
     };
 
-    editTask(task_id, String(task_column), newTask);
+    editTask(task_id, String(column), newTask);
 
     // Reset form and close
     setTitle("");
     setContent("");
     setDescription("");
+
     onClose();
   };
 
@@ -129,7 +128,7 @@ const EditModal = ({
               <div className="grid gap-2">
                 <Label htmlFor="Title">Task Type</Label>
                 <Select
-                  value={column}
+                  value={column as string}
                   onValueChange={(value) => setColumn(value)}
                 >
                   <SelectTrigger className="w-45">
