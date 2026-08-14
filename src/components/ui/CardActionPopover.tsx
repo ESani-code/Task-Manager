@@ -54,7 +54,17 @@ const CardActionPopover = ({
         </PopoverContent>
       </Popover>
 
-      <EditModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <EditModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        task_id={id}
+        task_index={index}
+        task_title={title}
+        task_description={description}
+        task_content={content}
+        task_footer={footer}
+        task_column={column}
+      />
     </>
   );
 };

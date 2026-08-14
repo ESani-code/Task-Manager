@@ -27,17 +27,34 @@ import { useTaskStore } from "../store/useTaskStore";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  // onCreate: (columnId: string, task: Task) => void;
+  task_id: string;
+  task_index: number;
+  task_title: string;
+  task_description: string;
+  task_content: string;
+  task_footer: string;
+  task_column: string | number;
 };
 
-const EditModal = ({ isOpen, onClose }: Props) => {
+const EditModal = ({
+  isOpen,
+  onClose,
+  task_id,
+  task_index,
+  task_title,
+  task_description,
+  task_content,
+  task_footer,
+  task_column,
+}: Props) => {
   const tasks = useTaskStore((state) => state.tasks);
   const taskType = Object.keys(tasks);
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [content, setContent] = useState("");
-  const [column, setColumn] = useState(taskType[0] || "On Going");
+  const [title, setTitle] = useState(task_title || "");
+  const [description, setDescription] = useState(task_description || "");
+  const [content, setContent] = useState(task_content || "");
+  const [column, setColumn] = useState(task_column || "On Going");
+  const [footer, setFooter] = useState(task_footer);
   const editTask = useTaskStore((state) => state.editTask);
 
   if (!isOpen) return null;
@@ -50,11 +67,11 @@ const EditModal = ({ isOpen, onClose }: Props) => {
       id: `task-${Date.now()}`, // Generate a unique ID
       title: title || "New Task",
       description: description || "No description provided.",
-      content: "Click to edit content...",
-      footer: "Card Created",
+      content: content,
+      footer: footer,
     };
 
-    editTask(column, newTask);
+    editTask(task_id, String(task_column), newTask);
 
     // Reset form and close
     setTitle("");
@@ -75,8 +92,8 @@ const EditModal = ({ isOpen, onClose }: Props) => {
             />
           </CardAction>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <CardContent>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="Title">Task Title</Label>
@@ -94,7 +111,7 @@ const EditModal = ({ isOpen, onClose }: Props) => {
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Description for you task"
+                  //   placeholder="Description for your task"
                 />
               </div>
 
@@ -130,8 +147,8 @@ const EditModal = ({ isOpen, onClose }: Props) => {
                 </Select>
               </div>
             </div>
-          </form>
-        </CardContent>
+          </CardContent>
+        </form>
         <CardFooter className="flex-col gap-2">
           <Button type="submit" className="w-full" onClick={handleSubmit}>
             Edit Task

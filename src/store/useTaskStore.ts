@@ -16,7 +16,7 @@ type TaskStore = {
     updater: (prevTasks: Record<string, Task[]>) => Record<string, Task[]>,
   ) => void;
 
-  editTask: (columnId: string, taskId: string, newValue: string) => void;
+  editTask: (columnId: string, taskId: string, newValue: Task) => void;
 };
 
 export const useTaskStore = create<TaskStore>((set) => ({
@@ -29,11 +29,11 @@ export const useTaskStore = create<TaskStore>((set) => ({
     }));
   },
 
-  updateTask: (columnId, taskId, newValue) => {
+  updateTask: (columnId, taskId, field, newValue) => {
     set((state) => {
       // Logic migrated from TaskPage.tsx
       const updatedColumn = state.tasks[columnId as string].map((task) =>
-        task.id === taskId ? { ...task, [columnId]: newValue } : task,
+        task.id === taskId ? { ...task, [field]: newValue } : task,
       );
       return { tasks: { ...state.tasks, [columnId]: updatedColumn } };
     });
