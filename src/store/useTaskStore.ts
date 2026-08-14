@@ -10,21 +10,30 @@ type TaskStore = {
     field: keyof Task,
     newValue: string,
   ) => void;
-  createTask: (columnId: string, newTask: Task) => void;
+  createTask: (columnId: string, newTask: Task, taskId: string) => void;
 
   setTasks: (
     updater: (prevTasks: Record<string, Task[]>) => Record<string, Task[]>,
   ) => void;
+
+  editTask: (columnId: string, taskId: string, newValue: string) => void;
 };
 
 export const useTaskStore = create<TaskStore>((set) => ({
   tasks: tasks,
 
-  updateTask: (columnId, taskId, field, newValue) => {
+  // Expose a setState-like function for dnd-kit's move helper
+  setTasks: (updater) => {
+    set((state) => ({
+      tasks: updater(state.tasks),
+    }));
+  },
+
+  updateTask: (columnId, taskId, newValue) => {
     set((state) => {
       // Logic migrated from TaskPage.tsx
       const updatedColumn = state.tasks[columnId as string].map((task) =>
-        task.id === taskId ? { ...task, [field]: newValue } : task,
+        task.id === taskId ? { ...task, [columnId]: newValue } : task,
       );
       return { tasks: { ...state.tasks, [columnId]: updatedColumn } };
     });
@@ -40,10 +49,13 @@ export const useTaskStore = create<TaskStore>((set) => ({
     }));
   },
 
-  // Expose a setState-like function for dnd-kit's move helper
-  setTasks: (updater) => {
-    set((state) => ({
-      tasks: updater(state.tasks),
-    }));
+  // Implementing Edit Task functionality
+  editTask: (taskId, columnId, newValue) => {
+    set((state) => {
+      const edittedTask = state.tasks[columnId as string].map((task) =>
+        task.id === taskId ? { ...task, [taskId]: newValue } : task,
+      );
+      return { tasks: { ...state.tasks, [columnId]: edittedTask } };
+    });
   },
 }));

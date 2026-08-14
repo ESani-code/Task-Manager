@@ -75,8 +75,8 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
             />
           </CardAction>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="Title">Task Title</Label>
@@ -130,13 +130,13 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
                 </Select>
               </div>
             </div>
-          </CardContent>
-          <CardFooter className="flex-col gap-2">
-            <Button type="submit" className="w-full" onClick={handleSubmit}>
-              Create Task
-            </Button>
-          </CardFooter>
-        </form>
+          </form>
+        </CardContent>
+        <CardFooter className="flex-col gap-2">
+          <Button type="submit" className="w-full" onClick={handleSubmit}>
+            Create Task
+          </Button>
+        </CardFooter>
       </Card>
     </div>
   );

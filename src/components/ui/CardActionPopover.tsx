@@ -1,8 +1,11 @@
+import { useTaskStore } from "../../store/useTaskStore";
 import { Button } from "./button";
 
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 const CardActionPopover = () => {
+  const editTask = useTaskStore().editTask;
+
   return (
     <Popover>
       <PopoverTrigger>
