@@ -17,6 +17,8 @@ type TaskStore = {
   ) => void;
 
   editTask: (columnId: string, taskId: string, newValue: Task) => void;
+
+  deleteTask: (columnId: string, taskId: string) => void;
 };
 
 export const useTaskStore = create<TaskStore>((set) => ({
@@ -79,6 +81,15 @@ export const useTaskStore = create<TaskStore>((set) => ({
           [newColumnId]: targetColumn,
         },
       };
+    });
+  },
+
+  deleteTask: (columnId, taskId) => {
+    set((state) => {
+      const updatedColumn = state.tasks[columnId].filter(
+        (task) => task.id !== taskId,
+      );
+      return { tasks: { ...state.tasks, [columnId]: updatedColumn } };
     });
   },
 }));

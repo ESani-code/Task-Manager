@@ -3,6 +3,7 @@ import EditModal from "../EditModal";
 import { Button } from "./button";
 
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { useTaskStore } from "../../store/useTaskStore";
 
 type Props = {
   id: string;
@@ -24,6 +25,8 @@ const CardActionPopover = ({
   column,
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const deleteTask = useTaskStore((state) => state.deleteTask);
   return (
     <>
       <Popover>
@@ -45,7 +48,10 @@ const CardActionPopover = ({
               <p className="text-md">Edit</p>
               <i className="bi bi-pen text-md" />
             </div>
-            <div className="px-3 py-1 text-destructive rounded-sm flex row items-center justify-between hover:bg-destructive/20">
+            <div
+              className="px-3 py-1 text-destructive rounded-sm flex row items-center justify-between hover:bg-destructive/20"
+              onClick={() => deleteTask(String(column), id)}
+            >
               <p className="text-md">Delete Task</p>
               <i className="bi bi-trash3 text-md" />
             </div>
