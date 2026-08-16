@@ -65,27 +65,6 @@ Serves the production build locally.
 npm run lint
 ```
 
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── Columns.tsx           # Droppable column container
-│   ├── ColumnHeader.tsx      # Column title + task count
-│   ├── TaskBox.tsx           # Sortable/draggable task card
-│   ├── TaskModal.tsx         # Modal for creating a new task
-│   ├── EditModal.tsx         # Modal for editing an existing task
-│   ├── EmptyState.tsx        # Placeholder for empty columns
-│   ├── FilterTab.tsx         # Column filter tabs
-│   ├── TaskTopBar.tsx        # Top bar with filters + "Create Task" button
-│   └── ui/                   # shadcn-based UI primitives
-├── store/
-│   └── useTaskStore.ts       # Zustand store: task state + CRUD actions
-└── utils/
-    ├── makeTask.ts           # Task type + factory helper
-    └── data.ts                # Initial seed data for columns/tasks
-```
-
 ## State Management
 
 Task data lives in a single Zustand store (`useTaskStore`), keyed by column:
@@ -95,11 +74,3 @@ tasks: Record<string, Task[]>;
 ```
 
 The store exposes actions for creating, updating, editing (including moving a task between columns), and deleting tasks, plus a `setTasks` updater used by `@dnd-kit`'s `move` helper to sync drag-and-drop changes back into state.
-
-## Drag and Drop
-
-Built with `@dnd-kit/react`:
-
-- `Columns` uses `useDroppable` so tasks can be dropped into any column, even empty ones.
-- `TaskBox` uses `useSortable` (grouped by column) so tasks can be reordered within a column or moved across columns.
-- `DragDropProvider`'s `onDragOver` handler applies `@dnd-kit/helpers`' `move()` to keep the Zustand store in sync during a drag.
