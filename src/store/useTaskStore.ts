@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { type Task } from "../utils/makeTask";
 import { tasks } from "../utils/data";
+import { persist } from "zustand/middleware";
 
 type TaskStore = {
   tasks: Record<string, Task[]>;
@@ -21,75 +22,82 @@ type TaskStore = {
   deleteTask: (columnId: string, taskId: string) => void;
 };
 
-export const useTaskStore = create<TaskStore>((set) => ({
-  tasks: tasks,
+export const useTaskStore = create<TaskStore>()(
+  persist(
+    (set) => ({
+      tasks: tasks,
 
-  // Expose a setState-like function for dnd-kit's move helper
-  setTasks: (updater) => {
-    set((state) => ({
-      tasks: updater(state.tasks),
-    }));
-  },
-
-  updateTask: (columnId, taskId, field, newValue) => {
-    set((state) => {
-      // Logic from TaskPage.tsx
-      const updatedColumn = state.tasks[columnId as string].map((task) =>
-        task.id === taskId ? { ...task, [field]: newValue } : task,
-      );
-      return { tasks: { ...state.tasks, [columnId]: updatedColumn } };
-    });
-  },
-
-  createTask: (columnId, newTask) => {
-    set((state) => ({
-      // Logic migrated from TaskPage.tsx
-      tasks: {
-        ...state.tasks,
-        [columnId]: [...state.tasks[columnId], newTask],
+      // Expose a setState-like function for dnd-kit's move helper
+      setTasks: (updater) => {
+        set((state) => ({
+          tasks: updater(state.tasks),
+        }));
       },
-    }));
-  },
 
-  editTask: (taskId, newColumnId, updatedTask) => {
-    set((state) => {
-      // Find the current column containing the task
-      const currentColumnId = Object.keys(state.tasks).find((col) =>
-        state.tasks[col].some((t) => t.id === taskId),
-      );
+      updateTask: (columnId, taskId, field, newValue) => {
+        set((state) => {
+          // Logic from TaskPage.tsx
+          const updatedColumn = state.tasks[columnId as string].map((task) =>
+            task.id === taskId ? { ...task, [field]: newValue } : task,
+          );
+          return { tasks: { ...state.tasks, [columnId]: updatedColumn } };
+        });
+      },
 
-      if (!currentColumnId) return state;
+      createTask: (columnId, newTask) => {
+        set((state) => ({
+          // Logic migrated from TaskPage.tsx
+          tasks: {
+            ...state.tasks,
+            [columnId]: [...state.tasks[columnId], newTask],
+          },
+        }));
+      },
 
-      // Case A: Editing within the SAME column
-      if (currentColumnId === newColumnId) {
-        const updatedColumn = state.tasks[currentColumnId].map((task) =>
-          task.id === taskId ? updatedTask : task,
-        );
-        return { tasks: { ...state.tasks, [currentColumnId]: updatedColumn } };
-      }
+      editTask: (taskId, newColumnId, updatedTask) => {
+        set((state) => {
+          // Find the current column containing the task
+          const currentColumnId = Object.keys(state.tasks).find((col) =>
+            state.tasks[col].some((t) => t.id === taskId),
+          );
 
-      // Case B: Task moved to a DIFFERENT column
-      const sourceColumn = state.tasks[currentColumnId].filter(
-        (task) => task.id !== taskId,
-      );
-      const targetColumn = [...state.tasks[newColumnId], updatedTask];
+          if (!currentColumnId) return state;
 
-      return {
-        tasks: {
-          ...state.tasks,
-          [currentColumnId]: sourceColumn,
-          [newColumnId]: targetColumn,
-        },
-      };
-    });
-  },
+          // Case A: Editing within the SAME column
+          if (currentColumnId === newColumnId) {
+            const updatedColumn = state.tasks[currentColumnId].map((task) =>
+              task.id === taskId ? updatedTask : task,
+            );
+            return {
+              tasks: { ...state.tasks, [currentColumnId]: updatedColumn },
+            };
+          }
 
-  deleteTask: (columnId, taskId) => {
-    set((state) => {
-      const updatedColumn = state.tasks[columnId].filter(
-        (task) => task.id !== taskId,
-      );
-      return { tasks: { ...state.tasks, [columnId]: updatedColumn } };
-    });
-  },
-}));
+          // Case B: Task moved to a DIFFERENT column
+          const sourceColumn = state.tasks[currentColumnId].filter(
+            (task) => task.id !== taskId,
+          );
+          const targetColumn = [...state.tasks[newColumnId], updatedTask];
+
+          return {
+            tasks: {
+              ...state.tasks,
+              [currentColumnId]: sourceColumn,
+              [newColumnId]: targetColumn,
+            },
+          };
+        });
+      },
+
+      deleteTask: (columnId, taskId) => {
+        set((state) => {
+          const updatedColumn = state.tasks[columnId].filter(
+            (task) => task.id !== taskId,
+          );
+          return { tasks: { ...state.tasks, [columnId]: updatedColumn } };
+        });
+      },
+    }),
+    { name: "task-storage" },
+  ),
+);
