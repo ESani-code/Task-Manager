@@ -98,6 +98,6 @@ export const useTaskStore = create<TaskStore>()(
         });
       },
     }),
-    { name: "task-storage" },
+    { name: "task-storage", partialize: (state) => ({ tasks: state.tasks }) },
   ),
 );
