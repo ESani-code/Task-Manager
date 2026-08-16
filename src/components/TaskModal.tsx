@@ -9,7 +9,7 @@ import {
 } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import type { Task } from "../utils/makeTask";
+import { getCustomDateTime, type Task } from "../utils/makeTask";
 
 import {
   Select,
@@ -49,7 +49,7 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
       title: title || "New Task",
       description: description || "No description provided.",
       content: "Click to edit content...",
-      footer: "Card Created",
+      footer: `Created on: ${getCustomDateTime()}`,
     };
 
     createTask(column, newTask);
