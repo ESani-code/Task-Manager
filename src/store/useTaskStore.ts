@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { type Task } from "../utils/makeTask";
-import { tasks } from "../utils/data";
+import { realTasks as tasks } from "../utils/data";
 import { persist } from "zustand/middleware";
 
 type TaskStore = {
