@@ -4,6 +4,9 @@ import { realTasks as tasks } from "../utils/data";
 import { persist } from "zustand/middleware";
 
 type TaskStore = {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+
   tasks: Record<string, Task[]>;
   updateTask: (
     columnId: string | number,
@@ -25,6 +28,9 @@ type TaskStore = {
 export const useTaskStore = create<TaskStore>()(
   persist(
     (set) => ({
+      activeTab: "All Tasks",
+      setActiveTab: (tab: string) => set({ activeTab: tab }),
+
       tasks: tasks,
 
       // Expose a setState-like function for dnd-kit's move helper

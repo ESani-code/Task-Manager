@@ -1,14 +1,12 @@
 // import { useState } from "react";
 import { useTaskStore } from "../store/useTaskStore";
+
 // import { tasks } from "../utils/data";
 
-type Props = {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-};
+const FilterTab = () => {
+  const activeTab = useTaskStore((state) => state.activeTab);
+  const setActiveTab = useTaskStore((state) => state.setActiveTab);
 
-const FilterTab = ({ activeTab, setActiveTab }: Props) => {
-  // const [Tasks] = useMemo<Record<string, Task[]>>(tasks);
   const tasks = useTaskStore((state) => state.tasks);
   return (
     <ul className="flex flex-row gap-6 text-sm p-3 bg-sidebar rounded-lg items-center">

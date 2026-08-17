@@ -1,6 +1,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { DragDropProvider } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
 
@@ -14,13 +14,13 @@ import { useTaskStore } from "../store/useTaskStore";
 
 function TaskPage() {
   const { tasks, setTasks } = useTaskStore();
-  const [activeTab, setActiveTab] = useState<string>("All Tasks");
+  const activeTab = useTaskStore((state) => state.activeTab);
 
   const previousItems = useRef(tasks);
 
   return (
     <>
-      <TaskTopBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <TaskTopBar />
       <section className="mx-2 flex items-center justify-center">
         <DragDropProvider
           onDragStart={() => {

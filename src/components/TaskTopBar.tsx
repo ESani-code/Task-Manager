@@ -6,19 +6,14 @@ import FilterTab from "./FilterTab";
 
 import { useState } from "react";
 
-type Props = {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-};
-
-const TaskTopBar = ({ activeTab, setActiveTab }: Props) => {
+const TaskTopBar = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <>
       <section className="flex flex-row justify-between px-2 py-4">
         <div className="">
-          <FilterTab activeTab={activeTab} setActiveTab={setActiveTab} />
+          <FilterTab />
         </div>
         <Button
           className="bg-sidebar-foreground"
