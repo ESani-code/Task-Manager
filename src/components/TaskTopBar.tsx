@@ -1,7 +1,7 @@
 // import type { Task } from "../utils/makeTask";
 import { Button } from "./ui/button";
 
-import TaskModal from "./TaskModal";
+import CreateTaskModal from "./CreateTaskModal";
 import FilterTab from "./FilterTab";
 
 import { useState } from "react";
@@ -29,7 +29,10 @@ const TaskTopBar = ({ activeTab, setActiveTab }: Props) => {
         </Button>
       </section>
 
-      <TaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <CreateTaskModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 };

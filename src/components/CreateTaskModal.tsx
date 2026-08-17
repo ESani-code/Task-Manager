@@ -28,7 +28,7 @@ type Props = {
   onClose: () => void;
 };
 
-const TaskModal = ({ isOpen, onClose }: Props) => {
+const CreateTaskModal = ({ isOpen, onClose }: Props) => {
   const tasks = useTaskStore((state) => state.tasks);
   const taskType = Object.keys(tasks);
 
@@ -48,7 +48,7 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
       id: `task-${Date.now()}`,
       title: title || "New Task",
       description: description || "No description provided.",
-      content: "Click to edit content...",
+      content: content || "Type your content here",
       footer: `Created on: ${getCustomDateTime()}`,
     };
 
@@ -140,4 +140,4 @@ const TaskModal = ({ isOpen, onClose }: Props) => {
   );
 };
 
-export default TaskModal;
+export default CreateTaskModal;
