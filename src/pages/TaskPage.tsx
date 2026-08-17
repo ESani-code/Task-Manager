@@ -11,6 +11,7 @@ import EmptyState from "../components/EmptyState";
 import TaskTopBar from "../components/TaskTopBar";
 
 import { useTaskStore } from "../store/useTaskStore";
+import CompleteState from "../components/CompleteState";
 
 function TaskPage() {
   const { tasks, setTasks } = useTaskStore();
@@ -51,7 +52,11 @@ function TaskPage() {
                   <ColumnHeader columnId={columnId} tasks={tasks} />
                   <Columns key={columnId} id={columnId}>
                     {tasks.length == 0 ? (
-                      <EmptyState />
+                      columnId == "Completed" ? (
+                        <CompleteState />
+                      ) : (
+                        <EmptyState />
+                      )
                     ) : (
                       tasks.map((task, index) => (
                         <TaskBox

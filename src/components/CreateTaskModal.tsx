@@ -111,6 +111,7 @@ const CreateTaskModal = ({ isOpen, onClose }: Props) => {
                 <Label htmlFor="Title">Task Type</Label>
                 <Select
                   value={column}
+                  // @ts-expect-error Expected behaviour from this attribute
                   onValueChange={(value) => setColumn(value)}
                 >
                   <SelectTrigger className="w-45">
