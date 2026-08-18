@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EditModal from "../EditModal";
 import { Button } from "./button";
+import { toast } from "./toast";
 
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { useTaskStore } from "../../store/useTaskStore";
@@ -27,6 +28,29 @@ const CardActionPopover = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const deleteTask = useTaskStore((state) => state.deleteTask);
+  const createTask = useTaskStore((state) => state.createTask);
+
+  function showToast() {
+    const id = toast.add({
+      title: "Deleted Task",
+      description: "Do you want to dismiss or undo",
+      actionProps: {
+        children: "Undo",
+        onClick() {
+          toast.close(id);
+          const task = {
+            id: id,
+            title: title,
+            description: description,
+            content: content,
+            footer: footer,
+          };
+          createTask(String(column), task);
+        },
+      },
+    });
+  }
+
   return (
     <>
       <Popover>
@@ -50,7 +74,10 @@ const CardActionPopover = ({
             </div>
             <div
               className="px-3 py-1 text-destructive rounded-sm flex row items-center justify-between hover:bg-destructive/20"
-              onClick={() => deleteTask(String(column), id)}
+              onClick={() => {
+                deleteTask(String(column), id);
+                showToast();
+              }}
             >
               <p className="text-md">Delete Task</p>
               <i className="bi bi-trash3 text-md" />
