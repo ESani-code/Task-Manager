@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { DragDropProvider } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
 
-import TaskBox from "../components/TaskBox";
+import TaskCard from "../components/TaskCard";
 import Columns from "../components/Columns";
 import ColumnHeader from "../components/ColumnHeader";
 import EmptyState from "../components/EmptyState";
@@ -59,7 +59,7 @@ function TaskPage() {
                       )
                     ) : (
                       tasks.map((task, index) => (
-                        <TaskBox
+                        <TaskCard
                           key={task.id}
                           id={task.id}
                           index={index}

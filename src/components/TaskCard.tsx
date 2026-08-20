@@ -25,7 +25,7 @@ type TaskBoxProps = {
   column: string | number;
 };
 
-const TaskBox = ({
+const TaskCard = ({
   id,
   index,
   title = "Title",
@@ -90,4 +90,4 @@ const TaskBox = ({
   );
 };
 
-export default TaskBox;
+export default TaskCard;
