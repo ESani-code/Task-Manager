@@ -77,6 +77,7 @@ const TaskCard = ({
       <CardContent className="text-md text-white ">
         <p>
           <EditableField
+            inputClassName="min-h-[100px]"
             value={content}
             onSave={(newVal) => updateTask(column, id, "content", newVal)}
             multiline={true}

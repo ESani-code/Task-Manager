@@ -41,12 +41,16 @@ export const EditableField = ({
     return multiline ? (
       <textarea
         autoFocus
-        className={`${inputClassName} bg-transparent border border-white/20 rounded outline-none text-white w-full resize-none`}
+        className={`${inputClassName} bg-transparent border border-white/20 rounded outline-none text-white w-full resize-none overflow-hidden`}
         value={currentValue}
-        onChange={(e) => setCurrentValue(e.target.value)}
+        onChange={(e) => {
+          setCurrentValue(e.target.value);
+          e.target.style.height = "auto";
+          e.target.style.height = `${e.target.scrollHeight}px`;
+        }}
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
-        rows={3}
+        rows={Math.max(3, currentValue.split("\n").length)}
       />
     ) : (
       <input

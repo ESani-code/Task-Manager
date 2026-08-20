@@ -116,10 +116,11 @@ const EditModal = ({
               <div className="grid gap-2">
                 <Label htmlFor="Title">Task Content</Label>
                 <textarea
-                  className="w-full bg-transparent border border-white/20 rounded p-2 outline-none resize-none"
+                  className="w-full bg-transparent border border-white/20 rounded p-2 outline-none resize-none overflow-hidden"
                   id="content"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
+                  rows={Math.max(3, content.split("\n").length)}
                   placeholder="Edit the content of your task here..."
                 />
               </div>
