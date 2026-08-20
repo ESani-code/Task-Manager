@@ -47,7 +47,7 @@ const TaskCard = ({
   return (
     <Card
       ref={ref}
-      className="w-full h-auto cursor-grab"
+      className="w-full h-auto cursor-grab hover:bg-card-accent group hover:shadow-lg transition-all duration-200 ease-in-out"
       data-dragging={isDragging}
     >
       <CardHeader>
@@ -74,7 +74,7 @@ const TaskCard = ({
           />
         </CardAction>
       </CardHeader>
-      <CardContent className="text-md text-white">
+      <CardContent className="text-md text-white ">
         <p>
           <EditableField
             value={content}
@@ -83,7 +83,7 @@ const TaskCard = ({
           />
         </p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="group-hover:bg-footer-card-accent transition-all duration-200 ease-in-out">
         <p>{footer}</p>
       </CardFooter>
     </Card>
